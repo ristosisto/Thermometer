@@ -2,35 +2,18 @@ package Thermometer;
 
 import javax.swing.*;
 import java.util.InputMismatchException;
+import java.util.Objects;
 import java.util.Scanner;
 
 
-public class Main{
-    //TODO instantiate a settings class and memory class
+/**
+ * The main method where the main program is run
+ */
+class Main{
 
-    //a main method without a gui
-    static void main2(){
-        //TODO do power on and self test methods here
-        Settings settings = new Settings(true);
-        Scanner scan = new Scanner(System.in);
-
-        while(true){
-            System.out.print("What would you like to do? \n[1] Scan Temperature \n[2].. ");
-            int input = 0;
-            try{
-                input = scan.nextInt();
-            }catch (InputMismatchException e){
-                System.out.print("You have to input a number from above");
-            }
-            if(input == 1){
-                Button.scanButton(settings);
-            }
-
-        }
-
-    }
-
-    //a main method with a gui
+    /**
+     * The method where the program is run
+     */
     static void main3(){
         Settings settings = new Settings(true);
         Display display = new Display("Press the Power Button to power on the machine", settings);
@@ -41,11 +24,8 @@ public class Main{
         frame.setLocationRelativeTo(null);
         frame.add(display);
         frame.setVisible(true);
-        StringBuilder scan;
-
-        boolean power = true; //a boolean which represents the power state of the device
-        //TODO change this to false during the power off method to 'turn off' the device and quit the program
-
+        StringBuilder scan = null;
+        boolean power = true;
         while(power){
             try {
                 Thread.sleep(100);

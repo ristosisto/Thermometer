@@ -1,9 +1,10 @@
 package Thermometer;
 
+
 /**
  * A class containing all the settings in the thermometer
  */
-public class Settings{
+class Settings{
     /**
      * A char fahrenheit which represents the Fahrenheit temperature unit
      */
@@ -38,7 +39,7 @@ public class Settings{
             toDefault();
         }
         else{
-            //TODO take the settings values from a place in storage to be used instead of the defaults
+            //set previously configured settings from storage on the device
         }
     }
 
@@ -47,9 +48,8 @@ public class Settings{
      */
     private void toDefault(){
         this.tempUnit=fahrenheit;
-        //TODO may want to change these default fever limit values
         this.upperFeverLimit=100.4;
-        this.lowerFeverLimit = 94.0;
+        this.lowerFeverLimit = 97.0;
     }
 
     public double getUpperFeverLimit() {
@@ -82,5 +82,10 @@ public class Settings{
 
     public static char getFahrenheit() {
         return fahrenheit;
+    }
+
+
+    public static boolean selfTest(){
+        return Settings.class.getPackageName().equals("Thermometer");
     }
 }

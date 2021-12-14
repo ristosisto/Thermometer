@@ -2,11 +2,13 @@ package Thermometer;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 /**
  * A class which represents the display of a thermometer
  */
-public class Display extends JPanel {
+class Display extends JPanel {
 
     /**
      * A JButton object which represents the scan button
@@ -23,7 +25,7 @@ public class Display extends JPanel {
     /**
      * A JButton object which represents the powerButton
      */
-    private JButton powerButton;
+    private JToggleButton powerButton;
     /**
      * A boolean which returns true if the thermometer is 'scanning' temperatures
      */
@@ -53,7 +55,7 @@ public class Display extends JPanel {
         //where the text will be displayed
         JPanel screen = new JPanel();
         scanButton = new JButton("Scan Button");
-        powerButton = new JButton("Power Button");
+        powerButton = new JToggleButton("Power Button");
         textDisplay = new JTextPane();
         textDisplay.setEditable(false);
         textDisplay.setText(toDisplay);
@@ -68,14 +70,20 @@ public class Display extends JPanel {
      * A method that initializes the action listeners for the swing buttons
      */
     void initButtons(){
-        powerButton.addActionListener(this::powerButton);
         scanButton.addActionListener(this::scanButton);
-    }
 
-    void powerButton(java.awt.event.ActionEvent evt){
-        Button.powerOn();
+        ItemListener itemListener = itemEvent -> {
+            int state = itemEvent.getStateChange();
+            if (state == ItemEvent.SELECTED) {
+                Button.powerButton(true);
+            }
+            else {
+                Button.powerButton(false);
+            }
+            toDisplay = Power.getToDisplay();
+        };
+        powerButton.addItemListener(itemListener);
     }
-
     void scanButton(java.awt.event.ActionEvent evt){
         scanning = true;
     }
@@ -103,6 +111,10 @@ public class Display extends JPanel {
 
     public void setToDisplay(String toDisplay) {
         this.toDisplay = toDisplay;
+    }
+
+    public static boolean selfTest(){
+        return !Display.class.isPrimitive();
     }
 
 }

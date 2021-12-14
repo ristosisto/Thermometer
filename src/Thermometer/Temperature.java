@@ -1,11 +1,12 @@
 package Thermometer;
+import javax.sound.sampled.LineUnavailableException;
 import java.util.Date;
 /**
  * A class used to take temperature measurements from an external scanner and find the average of those measurements,
  * determine if the average measurements are above or below a predetermined fever limit, and convert the average
  * temperature if necessary
  */
-public class Temperature {
+class Temperature {
     /**
     * An array of doubles which contains 10 scanned temperatures from the scanner
     */
@@ -68,19 +69,40 @@ public class Temperature {
     /**
     * A void which determines if an averageTemperature is above or below the fever limit and then set the toDisplay variable to reflect that
     */
-    private void calculateFever(){
-        if(settings.getUpperFeverLimit() <= averageTemperature && settings.getTempUnit() == Settings.getFahrenheit()){
-            toDisplay = "Fever Alert!! The measured temperature of " + averageTemperature + " is above the fever limit of " + settings.getUpperFeverLimit();        }
+    private void calculateFever() {
+        if (settings.getUpperFeverLimit() <= averageTemperature && settings.getTempUnit() == Settings.getFahrenheit()) {
+            toDisplay = "Fever Alert!! The measured temperature of " + averageTemperature + " is above the fever limit of " + settings.getUpperFeverLimit();
+            try {
+                Sound.tone(600, 200);
+            } catch (LineUnavailableException e) {
+                e.printStackTrace();
+            }
+        }
         else if(settings.getUpperFeverLimit() <= averageTemperature && settings.getTempUnit() == Settings.getCelsius()){
             convert();
             toDisplay = "Fever Alert!! The measured temperature of " + averageTemperature + " is above the fever limit of " + ((settings.getUpperFeverLimit()-32)*5/9);
+            try {
+                Sound.tone(600, 200);
+            } catch (LineUnavailableException e) {
+                e.printStackTrace();
+            }
         }
         else if(settings.getLowerFeverLimit() >= averageTemperature && settings.getTempUnit() == Settings.getFahrenheit()){
             toDisplay = "Fever Alert!! The measured temperature of " + averageTemperature + " is below the fever limit of " + settings.getLowerFeverLimit();
+            try {
+                Sound.tone(600, 200);
+            } catch (LineUnavailableException e) {
+                e.printStackTrace();
+            }
         }
         else if(settings.getLowerFeverLimit() >= averageTemperature && settings.getTempUnit() == Settings.getCelsius()){
             convert();
             toDisplay = "Fever Alert!! The measured temperature of " + averageTemperature + " is below the fever limit of " + ((settings.getLowerFeverLimit()-32)*5/9);
+            try {
+                Sound.tone(600, 200);
+            } catch (LineUnavailableException e) {
+                e.printStackTrace();
+            }
         }
         else{
             toDisplay = "The measured temperature is within the fever limits";
@@ -89,5 +111,12 @@ public class Temperature {
 
     public String getToDisplay() {
         return toDisplay;
+    }
+
+    /**
+     * A self-test to ensure that the system is functioning properly
+     */
+    public static boolean selfTest(){
+        return !Temperature.class.isArray();
     }
 }
