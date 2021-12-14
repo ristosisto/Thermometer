@@ -10,7 +10,7 @@ class Sound {
     public static float SAMPLE_RATE = 8000f;
 
     /**
-     * A method which produces a tone given hertz and miliseconds
+     * A method which produces a tone given hertz and milliseconds
      */
     public static void tone(int hz, int msecs)
             throws LineUnavailableException
@@ -19,7 +19,7 @@ class Sound {
     }
 
     /**
-     * A method which produces a tone given hertz, miliseconds, and volume
+     * A method which produces a tone given hertz, milliseconds, and volume
      */
     public static void tone(int hz, int msecs, double vol)
             throws LineUnavailableException

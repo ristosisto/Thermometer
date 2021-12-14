@@ -16,7 +16,7 @@ class Temperature {
     */
     private double averageTemperature;
     /**
-    * A string which represents the output that is sent to the ****display*** class
+    * A string which represents the output that is sent to the display class
     */
     private String toDisplay;
     /**
@@ -114,15 +114,14 @@ class Temperature {
             return true;
         }
         else{
-            toDisplay = "The measured temperature is within the fever limits";
-            return false;
+            toDisplay = "The measured temperature of " + averageTemperature + " is within the fever limits" ;
+             return false;
         }
     }
 
     public String getToDisplay() {
         return toDisplay;
     }
-
 
     public boolean isFever() {
         return fever;

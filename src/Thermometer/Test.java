@@ -1,6 +1,5 @@
 package Thermometer;
-import javax.sound.sampled.LineUnavailableException;
-import javax.swing.*;
+
 
 import java.util.Random;
 

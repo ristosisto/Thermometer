@@ -22,7 +22,7 @@ class Power{
         }
         try {
             Thread.sleep(3000);
-            toDisplay = "Self-test complete";
+            toDisplay = "Self-test complete. Click scan to begin scanning";
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -63,10 +63,14 @@ class Power{
      * A method which powers off the unit and runs the self-test
      */
     static void powerOff(){
-        toDisplay="Powering off, please wait for self-test to finish";
-
         if(selfTest()){
             power = false;
+        }
+        try {
+            Thread.sleep(3000);
+            toDisplay = "Self-test complete. System is powered off";
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 
