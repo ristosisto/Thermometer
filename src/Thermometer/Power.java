@@ -73,4 +73,8 @@ class Power{
     public static String getToDisplay() {
         return toDisplay;
     }
+
+    public static boolean isPower() {
+        return power;
+    }
 }

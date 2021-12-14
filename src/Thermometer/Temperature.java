@@ -28,14 +28,17 @@ class Temperature {
     * A Date object which represents a timestamp of when the temperatures were taken
     */
     private final Date timestamp;
+    /**
+     * A boolean which returns true if the measured temperature was above or below the fever limit
+     */
+    private final boolean fever;
 
     public Temperature(double[] temps, Settings settings){
         this.measuredTemperatures = temps;
         this.settings = settings;
         this.timestamp = new Date();
         this.averageTemperature = calculateAverage();
-        System.out.println(averageTemperature);
-        calculateFever();
+        this.fever = calculateFever();
     }
 
     public Date getTimestamp() {
@@ -67,9 +70,11 @@ class Temperature {
     }
 
     /**
-    * A void which determines if an averageTemperature is above or below the fever limit and then set the toDisplay variable to reflect that
+    * A boolean which determines if an averageTemperature is above or below the fever limit and then set the toDisplay variable to reflect that
+    *
+    * @return true if the average temperature is above or below the fever limit
     */
-    private void calculateFever() {
+    private boolean calculateFever() {
         if (settings.getUpperFeverLimit() <= averageTemperature && settings.getTempUnit() == Settings.getFahrenheit()) {
             toDisplay = "Fever Alert!! The measured temperature of " + averageTemperature + " is above the fever limit of " + settings.getUpperFeverLimit();
             try {
@@ -77,6 +82,7 @@ class Temperature {
             } catch (LineUnavailableException e) {
                 e.printStackTrace();
             }
+            return true;
         }
         else if(settings.getUpperFeverLimit() <= averageTemperature && settings.getTempUnit() == Settings.getCelsius()){
             convert();
@@ -86,6 +92,7 @@ class Temperature {
             } catch (LineUnavailableException e) {
                 e.printStackTrace();
             }
+            return true;
         }
         else if(settings.getLowerFeverLimit() >= averageTemperature && settings.getTempUnit() == Settings.getFahrenheit()){
             toDisplay = "Fever Alert!! The measured temperature of " + averageTemperature + " is below the fever limit of " + settings.getLowerFeverLimit();
@@ -94,6 +101,7 @@ class Temperature {
             } catch (LineUnavailableException e) {
                 e.printStackTrace();
             }
+            return true;
         }
         else if(settings.getLowerFeverLimit() >= averageTemperature && settings.getTempUnit() == Settings.getCelsius()){
             convert();
@@ -103,14 +111,21 @@ class Temperature {
             } catch (LineUnavailableException e) {
                 e.printStackTrace();
             }
+            return true;
         }
         else{
             toDisplay = "The measured temperature is within the fever limits";
+            return false;
         }
     }
 
     public String getToDisplay() {
         return toDisplay;
+    }
+
+
+    public boolean isFever() {
+        return fever;
     }
 
     /**
