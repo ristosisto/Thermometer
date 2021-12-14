@@ -29,7 +29,7 @@ class Button{
      */
    public static Temperature scanButton(Settings settings){
        Random rand = new Random();
-       double[] temps = rand.doubles(10, 95,110).toArray();
+       double[] temps = rand.doubles(10, 95,105).toArray();
        return new Temperature(temps, settings);
     }
 
