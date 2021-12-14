@@ -39,6 +39,7 @@ class Main{
                         frame.repaint();
                         scan.append(".");
                     }
+                    Sound.tone(600, 200);
                     display.setScanning(false);
                     memory.getMeasuredTemperatures().add(display.scan()); //adds the temperature object from scanning to the memory list
                 }
