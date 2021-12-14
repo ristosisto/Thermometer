@@ -1,5 +1,6 @@
 package Thermometer;
 
+import javax.sound.sampled.LineUnavailableException;
 import javax.swing.*;
 import java.util.InputMismatchException;
 import java.util.Objects;
@@ -39,7 +40,11 @@ class Main{
                         frame.repaint();
                         scan.append(".");
                     }
-                    Sound.tone(600, 200);
+                    try {
+                        Sound.tone(600, 200);
+                    } catch (LineUnavailableException e) {
+                        e.printStackTrace();
+                    }
                     display.setScanning(false);
                     memory.getMeasuredTemperatures().add(display.scan()); //adds the temperature object from scanning to the memory list
                 }
